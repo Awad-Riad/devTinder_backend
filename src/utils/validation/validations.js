@@ -3,5 +3,5 @@ const validateSignUpData = (req) => {
   if(!firstName || !lastName){
     throw new Error("Name is not valid")
 
-  }else if()
+  }
 };
