@@ -4,4 +4,22 @@ const validateSignUpData = (req) => {
     throw new Error("Name is not valid");
   }
 };
-module.exports = { validateSignUpData };
+
+const validateEditprofileData = (req) => {
+  const allowedEditFields = [
+    "emailId",
+    "password",
+    "age",
+    "gender",
+    "photoUrl",
+    "about",
+    "firstName",
+    "lastName",
+    "skills",
+  ];
+  const isEditAllowed = Object.keys(req.body).every((field) =>
+    allowedEditFields.includes(field)
+  );
+  return isEditAllowed;
+};
+module.exports = { validateSignUpData,validateEditprofileData };
