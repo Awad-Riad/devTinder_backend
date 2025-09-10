@@ -10,10 +10,10 @@ var cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin:
-    process.env.NODE_ENV === "production"
-      ? true // Allows production domains
-      : "http://localhost:5173",
+  origin: [
+    "http://localhost:5173", // For local development
+    "https://devtinder-web-617407706009.me-central1.run.app", // Your deployed React app URL
+  ],
   credentials: true,
 };
 app.use(cors(corsOptions));
