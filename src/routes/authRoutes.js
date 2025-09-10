@@ -39,8 +39,14 @@ router.post("/login", async (req, res) => {
     if (isPasswordVaid) {
       const { password, ...userWithoutPassword } = user._doc; //to json the user info without the password
       const token = await user.getJWT();
+
       res.cookie("token", token, {
         expires: new Date(Date.now() + 8 * 3600000),
+        httpOnly: true,
+        secure: true, // MUST be true for HTTPS (Cloud Run uses HTTPS)
+        sameSite: "none", // CRITICAL for cross-origin cookies
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        domain: undefined, // Don't set domain for Cloud Run
       });
       return res.json({
         message: "User login Successfully",
@@ -50,7 +56,9 @@ router.post("/login", async (req, res) => {
       return res.status(404).json({ message: "Invalid Credentials" });
     }
   } catch (error) {
-    return res.status(400).json({ message: "Something Went Wrong:" + error.message });
+    return res
+      .status(400)
+      .json({ message: "Something Went Wrong:" + error.message });
   }
 });
 
