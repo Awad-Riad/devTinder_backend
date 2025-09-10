@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose port for Cloud Run
-EXPOSE 7777
+EXPOSE 8080
 
 # Start server
 CMD ["node", "app.js"]
