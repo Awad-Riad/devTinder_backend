@@ -10,7 +10,10 @@ var cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: true,
+  origin:
+    process.env.NODE_ENV === "production"
+      ? true // Allows production domains
+      : "http://localhost:5173",
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -45,7 +48,7 @@ connectDB()
   .then(() => {
     console.log("DB connected successfully");
 
-    app.listen(PORT, '0.0.0.0', () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log("Server is listning on port 8080");
     });
   })
