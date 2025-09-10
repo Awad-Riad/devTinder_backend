@@ -8,10 +8,10 @@ const User = require("./Models/user");
 var cors = require("cors");
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 var corsOptions = {
   origin: "http://localhost:5173",
-  credentials:true
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
@@ -44,7 +44,7 @@ connectDB()
     console.log("DB connected successfully");
 
     app.listen(PORT, () => {
-      console.log("Server is listning on port 7777");
+      console.log("Server is listning on port 8080");
     });
   })
   .catch((e) => {
