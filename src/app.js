@@ -8,7 +8,7 @@ const User = require("./Models/user");
 var cors = require("cors");
 
 const app = express();
-const PORT = process.env.PORT || 7777;
+const PORT = process.env.PORT || 8080;
 var corsOptions = {
   origin: "http://localhost:5173",
   credentials:true
