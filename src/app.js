@@ -10,7 +10,7 @@ var cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:5173",
+  origin: true,
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -39,15 +39,18 @@ app.get("/user", async (req, res) => {
   }
 });
 
+const PORT = process.env.PORT || 8080;
+
 connectDB()
   .then(() => {
     console.log("DB connected successfully");
 
-    app.listen(8080, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log("Server is listning on port 8080");
     });
   })
   .catch((e) => {
     console.error("connot connected to the DB");
     console.error(e);
+    process.exit(1);
   });
