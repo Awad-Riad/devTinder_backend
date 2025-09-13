@@ -22,7 +22,7 @@ router.post("/signup", async (req, res) => {
     });
 
     await user.save();
-    return res.json({ message: "User Added Successfully", data: user });
+    return res.json({ message: "User Added Successfullyyy", data: user });
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }
