@@ -1,9 +1,7 @@
 const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const Payment = require("../Models/Payment");
-const stripe = require("stripe")(
-    process.env.STRIPE_SECRET_KEY
-);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const membershipAmount = require("../utils/constants");
 
 const paymentRouter = express.Router();
@@ -60,25 +58,25 @@ paymentRouter.post("/payment/create", userAuth, async (req, res) => {
 });
 const YOUR_DOMAIN = "http://localhost:8080";
 paymentRouter.post("/create-checkout-session", async (req, res) => {
-    try {
-      const { membershipType } = req.body; // Use the membershipType if needed
-      
-      const session = await stripe.checkout.sessions.create({
-        line_items: [
-          {
-            price: "price_1S6HsOCrlCYt4pG7UjO0XV4d",
-            quantity: 1,
-          },
-        ],
-        mode: "subscription",
-        success_url: `${YOUR_DOMAIN}/success.html`,
-        cancel_url: `${YOUR_DOMAIN}/cancel.html`,
-      });
-  
-      // Return JSON instead of redirecting
-      res.json({ url: session.url });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  });
+  try {
+    const { membershipType } = req.body; // Use the membershipType if needed
+
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price: "price_1S6HsOCrlCYt4pG7UjO0XV4d",
+          quantity: 1,
+        },
+      ],
+      mode: "subscription",
+      success_url: `${YOUR_DOMAIN}/success.html`,
+      cancel_url: `${YOUR_DOMAIN}/cancel.html`,
+    });
+
+    // Return JSON instead of redirecting
+    res.json({ url: session.url });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 module.exports = paymentRouter;
